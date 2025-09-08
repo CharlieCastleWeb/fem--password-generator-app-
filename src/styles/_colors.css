@@ -1,0 +1,17 @@
+@theme {
+  --color-fem-white: #ffffff;
+  --color-fem-black: #000000;
+
+  --color-fem-grey-200: #e6e5ea;
+  --color-fem-grey-600: #817d92;
+  --color-fem-grey-700: #54535b;
+  --color-fem-grey-800: #24232c;
+  --color-fem-grey-850: #18171f;
+  --color-fem-grey-900: #14131b;
+  --color-fem-grey-950: #08070b;
+
+  --color-fem-green-200: #a4ffaf;
+  --color-fem-yellow-300: #f8cd65;
+  --color-fem-orange-400: #fb7c58;
+  --color-fem-red-500: #f64a4a;
+}

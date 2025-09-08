@@ -1,0 +1,19 @@
+@theme {
+  --font-fem-mono: "JetBrains Mono Bold", monospace;
+}
+
+@utility text-preset-1 {
+  @apply font-fem-mono font-bold text-[2rem] leading-[1.3125];
+}
+
+@utility text-preset-2 {
+  @apply font-fem-mono font-bold text-2xl;
+}
+
+@utility text-preset-3 {
+  @apply font-fem-mono font-bold text-lg leading-[1.3333];
+}
+
+@utility text-preset-4 {
+  @apply font-fem-mono font-bold text-base leading-tight;
+}
