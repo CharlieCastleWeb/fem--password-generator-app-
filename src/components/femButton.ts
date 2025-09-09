@@ -13,7 +13,7 @@ template.innerHTML = `
       border-transparent
       cursor-pointer
       transition-colors
-      hover:bg-fem-grey-800 
+      hover:bg-transparent 
       hover:border-fem-green-200
       hover:text-fem-green-200
     "
