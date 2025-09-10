@@ -11,6 +11,7 @@ template.innerHTML = `
         <div class="border-2 border-fem-grey-200 h-7 w-2.5"></div>
         <div class="border-2 border-fem-grey-200 h-7 w-2.5"></div>
         <div class="border-2 border-fem-grey-200 h-7 w-2.5"></div>
+        <div class="border-2 border-fem-grey-200 h-7 w-2.5"></div>
       </div>
     </div>
   </div>
