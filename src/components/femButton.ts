@@ -1,34 +1,10 @@
-import twSheet from "../styles/tw-shadow";
-
-const template = document.createElement("template");
-template.innerHTML = `
-  <button
+export function renderFemButton(label: string) {
+  return `
+    <button
     type="button"
-    class="
-      p-4 
-      text-preset-3 
-      uppercase 
-      bg-fem-green-200 
-      border-2 
-      border-transparent
-      cursor-pointer
-      transition-colors
-      hover:bg-transparent 
-      hover:border-fem-green-200
-      hover:text-fem-green-200
-    "
-  >
-    <slot></slot>
-  </button>
-`;
-
-export class FemButton extends HTMLElement {
-  constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: "open" });
-    shadow.adoptedStyleSheets = [twSheet];
-    shadow.append(template.content.cloneNode(true));
-  }
+    class="p-4 text-preset-3 uppercase bg-fem-green-200 border-2 border-transparent cursor-pointer transition-colors hover:bg-transparent hover:border-fem-green-200 hover:text-fem-green-200"
+    >
+      ${label}
+    </button>
+  `;
 }
-
-customElements.define("fem-button", FemButton);

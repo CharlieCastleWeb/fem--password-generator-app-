@@ -1,3 +1,3 @@
-export { FemStrengthDisplay } from "./femStrengthDisplay";
-export { FemButton } from "./femButton";
-export { FemCheckbox } from "./femCheckbox";
+export { renderFemStrengthDisplay } from "./femStrengthDisplay";
+export { renderFemButton } from "./femButton";
+export { renderFemCheckbox } from "./femCheckbox";
