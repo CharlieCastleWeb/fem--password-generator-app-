@@ -1,19 +1,13 @@
 import "./style.css";
 
-import {
-  renderFemButton,
-  renderFemCheckbox,
-  renderFemStrengthDisplay,
-} from "./components";
+import { renderPasswordGeneratorPage } from "./pages/password-generator-page";
 
 function renderApp() {
-  return `
-    <main class="bg-fem-grey-850 h-screen">
-      ${renderFemButton("Click me!")}
-      ${renderFemCheckbox("prueba")}
-      ${renderFemStrengthDisplay("strengthh", "wakkk")}
-    </main>
-  `;
+  return renderPasswordGeneratorPage();
 }
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = renderApp();
+const app = document.querySelector<HTMLDivElement>("#app");
+
+if (app) {
+  app.replaceChildren(renderApp());
+}

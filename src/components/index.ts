@@ -1,3 +1,4 @@
-export { renderFemStrengthDisplay } from "./femStrengthDisplay";
-export { renderFemButton } from "./femButton";
-export { renderFemCheckbox } from "./femCheckbox";
+export { renderStrengthDisplay } from "./strengthDisplay";
+export { renderButton } from "./button";
+export { renderCheckbox } from "./checkbox";
+export { renderPasswordDisplay } from "./password-display";
