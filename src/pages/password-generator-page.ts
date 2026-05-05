@@ -3,6 +3,7 @@ import {
   renderCheckbox,
   renderStrengthDisplay,
   renderPasswordDisplay,
+  renderSlider,
 } from "../components";
 
 export function renderPasswordGeneratorPage(): HTMLElement {
@@ -17,12 +18,17 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   h1.className = "text-preset-4 text-fem-grey-600 text-center";
   h1.textContent = "Password Generator";
 
-  const panelsContainer = document.createElement("section");
-  panelsContainer.className = "flex flex-col gap-4 pt-4";
-  panelsContainer.appendChild(renderPasswordDisplay("Prueba"));
+  const resultContainer = document.createElement("section");
+  resultContainer.className = "flex flex-col gap-4 pt-4";
+  resultContainer.appendChild(renderPasswordDisplay("Prueba"));
+
+  const formContainer = document.createElement("section");
+  formContainer.className = "flex flex-col gap-4 pt-4 bg-fem-grey-800 mt-4";
+  formContainer.appendChild(renderSlider());
 
   main.appendChild(h1);
-  main.appendChild(panelsContainer);
+  main.appendChild(resultContainer);
+  main.appendChild(formContainer);
 
   return main;
 }

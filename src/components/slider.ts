@@ -1,0 +1,57 @@
+import "../styles/components/_slider-component.css";
+
+export function renderSlider(): HTMLElement {
+  const MIN_LENGTH = 1;
+  const MAX_LENGTH = 20;
+  const INITIAL_LENGTH = 10;
+  const SLIDER_ID = "character-length";
+
+  const sliderComponent = document.createElement("section");
+
+  const sliderComponentHeader = document.createElement("div");
+  sliderComponentHeader.className = "w-full flex justify-between items-center";
+
+  const sliderComponentLabel = document.createElement("label");
+  sliderComponentLabel.className = "text-preset-4 text-fem-grey-200";
+  sliderComponentLabel.htmlFor = SLIDER_ID;
+  sliderComponentLabel.textContent = "Character Length";
+
+  const sliderComponentOutput = document.createElement("output");
+  sliderComponentOutput.className =
+    "text-preset-2 text-fem-green-200 font-normal";
+  sliderComponentOutput.setAttribute("for", SLIDER_ID);
+  sliderComponentOutput.id = "character-length-value";
+  sliderComponentOutput.value = String(INITIAL_LENGTH);
+
+  sliderComponentHeader.appendChild(sliderComponentLabel);
+  sliderComponentHeader.appendChild(sliderComponentOutput);
+
+  const sliderComponentInput = document.createElement("input");
+  sliderComponentInput.className = "password-generator__slider";
+
+  sliderComponentInput.id = SLIDER_ID;
+  sliderComponentInput.type = "range";
+  sliderComponentInput.min = String(MIN_LENGTH);
+  sliderComponentInput.max = String(MAX_LENGTH);
+  sliderComponentInput.value = String(INITIAL_LENGTH);
+
+  function updateSlider(): void {
+    const min = Number(sliderComponentInput.min);
+    const max = Number(sliderComponentInput.max);
+    const value = sliderComponentInput.valueAsNumber;
+
+    const progress = ((value - min) / (max - min)) * 100;
+
+    sliderComponentOutput.value = String(value);
+    sliderComponentInput.style.setProperty("--slider-progress", `${progress}%`);
+  }
+
+  sliderComponentInput.addEventListener("input", updateSlider);
+
+  updateSlider();
+
+  sliderComponent.appendChild(sliderComponentHeader);
+  sliderComponent.appendChild(sliderComponentInput);
+
+  return sliderComponent;
+}

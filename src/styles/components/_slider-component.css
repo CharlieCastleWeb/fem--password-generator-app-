@@ -1,0 +1,57 @@
+.password-generator__slider {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.password-generator__slider::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--color-fem-green-200) 0%,
+    var(--color-fem-green-200) var(--slider-progress),
+    var(--color-fem-grey-850) var(--slider-progress),
+    var(--color-fem-grey-850) 100%
+  );
+  height: 0.5rem;
+}
+
+.password-generator__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #e6e5ea;
+  border-radius: 9999px;
+  height: 1.75rem;
+  margin-top: -0.75rem;
+  transition: all 300ms ease-in-out;
+  width: 1.75rem;
+}
+
+.password-generator__slider:hover::-webkit-slider-thumb {
+  background-color: var(--color-fem-grey-850);
+  border: 2px solid var(--color-fem-green-200);
+}
+
+.password-generator__slider::-moz-range-track {
+  background-color: var(--color-fem-grey-850);
+  border: 0;
+  height: 0.5rem;
+}
+
+.password-generator__slider::-moz-range-progress {
+  background-color: var(--color-fem-green-200);
+  border: 0;
+  height: 0.5rem;
+}
+
+.password-generator__slider::-moz-range-thumb {
+  background-color: #e6e5ea;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  height: 1.75rem;
+  transition: all 300ms ease-in-out;
+  width: 1.75rem;
+}
+
+.password-generator__slider:hover::-moz-range-thumb {
+  background-color: var(--color-fem-grey-850);
+  border-color: var(--color-fem-green-200);
+}
