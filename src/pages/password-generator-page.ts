@@ -24,11 +24,26 @@ export function renderPasswordGeneratorPage(): HTMLElement {
 
   const formContainer = document.createElement("section");
   formContainer.className = "flex flex-col gap-4 pt-4 bg-fem-grey-800 mt-4";
+
+  const passwordOptionsFieldset = document.createElement("fieldset");
+  const upperCaseCheckbox = renderCheckbox("Include Uppercase Letters");
+  const lowerCaseCheckbox = renderCheckbox("Include Lowercase Letters");
+  const numbersCheckbox = renderCheckbox("Include Numbers Letters");
+  const symbolsCheckbox = renderCheckbox("Include Symbols Letters");
+
+  passwordOptionsFieldset.appendChild(upperCaseCheckbox);
+  passwordOptionsFieldset.appendChild(lowerCaseCheckbox);
+  passwordOptionsFieldset.appendChild(numbersCheckbox);
+  passwordOptionsFieldset.appendChild(symbolsCheckbox);
+
   formContainer.appendChild(renderSlider());
+  formContainer.appendChild(passwordOptionsFieldset);
 
   main.appendChild(h1);
   main.appendChild(resultContainer);
   main.appendChild(formContainer);
+
+  main.appendChild(renderStrengthDisplay("medium"));
 
   return main;
 }

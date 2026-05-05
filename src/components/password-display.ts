@@ -43,7 +43,6 @@ function createCopyBtn(getPassword: () => string): HTMLButtonElement {
       console.error("No se pudo copiar al portapapeles", error);
     }
   });
-
   return copyBtn;
 }
 
