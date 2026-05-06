@@ -32,7 +32,8 @@ function renderStrengthBars() {
 
 export function renderStrengthDisplay(level: StrengthLevel) {
   const container = document.createElement("div");
-  container.className = "px-8 py-5 flex items-center justify-between gap-6";
+  container.className =
+    "px-4 py-3.5 flex items-center justify-between gap-6 bg-fem-grey-850";
 
   const title = document.createElement("p");
   title.className = "text-preset-3 text-fem-grey-600 uppercase";

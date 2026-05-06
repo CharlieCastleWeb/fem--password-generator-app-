@@ -23,9 +23,11 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   resultContainer.appendChild(renderPasswordDisplay("Prueba"));
 
   const formContainer = document.createElement("section");
-  formContainer.className = "flex flex-col gap-4 pt-4 bg-fem-grey-800 mt-4";
+  formContainer.className = "flex flex-col gap-8 pt-4 bg-fem-grey-800 mt-4 p-4";
 
   const passwordOptionsFieldset = document.createElement("fieldset");
+  passwordOptionsFieldset.className = "flex flex-col gap-4";
+
   const upperCaseCheckbox = renderCheckbox("Include Uppercase Letters");
   const lowerCaseCheckbox = renderCheckbox("Include Lowercase Letters");
   const numbersCheckbox = renderCheckbox("Include Numbers Letters");
@@ -39,11 +41,16 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   formContainer.appendChild(renderSlider());
   formContainer.appendChild(passwordOptionsFieldset);
 
+  const footer = document.createElement("div");
+  footer.className = "flex flex-col gap-4";
+
+  footer.appendChild(renderStrengthDisplay("medium"));
+  footer.appendChild(renderButton("Generate"));
+
   main.appendChild(h1);
   main.appendChild(resultContainer);
   main.appendChild(formContainer);
-
-  main.appendChild(renderStrengthDisplay("medium"));
+  formContainer.appendChild(footer);
 
   return main;
 }

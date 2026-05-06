@@ -9,10 +9,10 @@ export function renderCheckbox(label: string) {
 
   const checkboxBox = document.createElement("div");
   checkboxBox.className =
-    "size-5 border-2 border-fem-white bg-no-repeat bg-center transition-colors peer-checked:bg-fem-green-200 peer-checked:border-fem-green-200 peer-checked:bg-[url('/assets/images/icon-check.svg')]";
+    "size-5 border-2 border-fem-grey-200 bg-no-repeat bg-center transition-colors peer-checked:bg-fem-green-200 peer-checked:border-fem-green-200 peer-checked:bg-[url('/assets/images/icon-check.svg')]";
 
   const checkboxText = document.createElement("p");
-  checkboxText.className = "text-preset-3 text-fem-white";
+  checkboxText.className = "text-preset-4 text-fem-grey-200";
   checkboxText.textContent = label;
 
   checkboxComponent.appendChild(checkboxInput);

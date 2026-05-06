@@ -9,7 +9,8 @@ export function renderSlider(): HTMLElement {
   const sliderComponent = document.createElement("section");
 
   const sliderComponentHeader = document.createElement("div");
-  sliderComponentHeader.className = "w-full flex justify-between items-center";
+  sliderComponentHeader.className =
+    "w-full flex justify-between items-center mb-2";
 
   const sliderComponentLabel = document.createElement("label");
   sliderComponentLabel.className = "text-preset-4 text-fem-grey-200";
