@@ -1,3 +1,10 @@
+const mockOptions = {
+  mockuppercase: true,
+  mocklowercase: true,
+  mocknumbers: true,
+  mocksymbols: true,
+};
+
 import {
   renderButton,
   renderCheckbox,
@@ -5,6 +12,7 @@ import {
   renderPasswordDisplay,
   renderSlider,
 } from "../components";
+import { generatePassword } from "../lib/password";
 
 export function renderPasswordGeneratorPage(): HTMLElement {
   const app = document.getElementById("app");
@@ -20,7 +28,9 @@ export function renderPasswordGeneratorPage(): HTMLElement {
 
   const resultContainer = document.createElement("section");
   resultContainer.className = "flex flex-col gap-4 pt-4";
-  resultContainer.appendChild(renderPasswordDisplay("Prueba"));
+  // resultContainer.appendChild(
+  //   renderPasswordDisplay(generatePassword(5, mockOptions)),
+  // );
 
   const formContainer = document.createElement("section");
   formContainer.className = "flex flex-col gap-8 pt-4 bg-fem-grey-800 mt-4 p-4";
