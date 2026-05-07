@@ -6,7 +6,7 @@ const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 const MIN_PASSWORD_LENGTH = 1;
 const MAX_PASSWORD_LENGTH = 20;
 
-type PasswordOptions = {
+export type PasswordOptions = {
   uppercase: boolean;
   lowercase: boolean;
   numbers: boolean;
@@ -45,25 +45,20 @@ function getSelectedCharacterGroups(
 
 function validatePasswordConfig(
   length: number,
-  passwordOptions: PasswordOptions,
+  selectedGroups: string[],
 ): void {
   const isValidLength =
     length >= MIN_PASSWORD_LENGTH && length <= MAX_PASSWORD_LENGTH;
-  const selectedGroups = getSelectedCharacterGroups(passwordOptions);
 
   if (!isValidLength) {
     throw new Error(
-      `You must specify a length between ${MIN_PASSWORD_LENGTH} and  ${MAX_PASSWORD_LENGTH}`,
+      `You must specify a length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}`,
     );
   }
 
   if (selectedGroups.length === 0) {
     throw new Error("You must select at least one character type");
   }
-}
-
-function getAvailableCharacters(passwordOptions: PasswordOptions): string {
-  return getSelectedCharacterGroups(passwordOptions).join("");
 }
 
 function getRandomCharacter(availableCharacters: string): string {
@@ -78,15 +73,14 @@ export function generatePassword(
   length: number,
   passwordOptions: PasswordOptions,
 ): string {
-  validatePasswordConfig(length, passwordOptions);
+  const selectedCharacterGroups = getSelectedCharacterGroups(passwordOptions);
+  validatePasswordConfig(length, selectedCharacterGroups);
 
-  const selectedGroups = shuffleValues(
-    getSelectedCharacterGroups(passwordOptions),
-  );
-  const availableCharacters = getAvailableCharacters(passwordOptions);
+  const shuffledGroups = shuffleValues(selectedCharacterGroups);
+  const availableCharacters = selectedCharacterGroups.join("");
   const password: string[] = [];
 
-  for (const group of selectedGroups.slice(0, length)) {
+  for (const group of shuffledGroups.slice(0, length)) {
     password.push(getRandomCharacter(group));
   }
 
