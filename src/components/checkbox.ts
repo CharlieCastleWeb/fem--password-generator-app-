@@ -1,8 +1,11 @@
-export function renderCheckbox(label: string) {
+//TODO add checbox icon
+
+export function renderCheckbox(initialValue: boolean, label: string) {
   const checkboxComponent = document.createElement("label");
   checkboxComponent.className = "flex items-center gap-6 cursor-pointer";
 
   const checkboxInput = document.createElement("input");
+  checkboxInput.checked = initialValue;
   checkboxInput.type = "checkbox";
   checkboxInput.name = "checkbox";
   checkboxInput.className = "sr-only peer";

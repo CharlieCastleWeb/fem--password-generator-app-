@@ -4,6 +4,7 @@ type PasswordGeneratorState = {
   includeLowercase: boolean;
   includeNumbers: boolean;
   includeSymbols: boolean;
+  currentPassword: string;
 };
 
 const passwordGeneratorState: PasswordGeneratorState = {
@@ -12,6 +13,8 @@ const passwordGeneratorState: PasswordGeneratorState = {
   includeLowercase: false,
   includeNumbers: false,
   includeSymbols: false,
+  //TODO calculate password when app starts
+  currentPassword: "asdf",
 };
 
 export function getPasswordGeneratorState(): PasswordGeneratorState {

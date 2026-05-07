@@ -1,9 +1,9 @@
 import "../styles/components/_slider-component.css";
 
-export function renderSlider(): HTMLElement {
+export function renderSlider(initialValue: number): HTMLElement {
   const MIN_LENGTH = 1;
   const MAX_LENGTH = 20;
-  const INITIAL_LENGTH = 10;
+  let sliderValue = initialValue;
   const SLIDER_ID = "character-length";
 
   const sliderComponent = document.createElement("section");
@@ -22,7 +22,7 @@ export function renderSlider(): HTMLElement {
     "text-preset-2 text-fem-green-200 font-normal";
   sliderComponentOutput.setAttribute("for", SLIDER_ID);
   sliderComponentOutput.id = "character-length-value";
-  sliderComponentOutput.value = String(INITIAL_LENGTH);
+  sliderComponentOutput.value = String(sliderValue);
 
   sliderComponentHeader.appendChild(sliderComponentLabel);
   sliderComponentHeader.appendChild(sliderComponentOutput);
@@ -34,7 +34,7 @@ export function renderSlider(): HTMLElement {
   sliderComponentInput.type = "range";
   sliderComponentInput.min = String(MIN_LENGTH);
   sliderComponentInput.max = String(MAX_LENGTH);
-  sliderComponentInput.value = String(INITIAL_LENGTH);
+  sliderComponentInput.value = String(sliderValue);
 
   function updateSlider(): void {
     const min = Number(sliderComponentInput.min);

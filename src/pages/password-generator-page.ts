@@ -12,7 +12,10 @@ import {
   renderPasswordDisplay,
   renderSlider,
 } from "../components";
-import { generatePassword } from "../lib/password";
+
+import { getPasswordGeneratorState } from "./password-generator-state";
+
+const passwordGeneratorState = getPasswordGeneratorState();
 
 export function renderPasswordGeneratorPage(): HTMLElement {
   const app = document.getElementById("app");
@@ -28,9 +31,9 @@ export function renderPasswordGeneratorPage(): HTMLElement {
 
   const resultContainer = document.createElement("section");
   resultContainer.className = "flex flex-col gap-4 pt-4";
-  // resultContainer.appendChild(
-  //   renderPasswordDisplay(generatePassword(5, mockOptions)),
-  // );
+  resultContainer.appendChild(
+    renderPasswordDisplay(passwordGeneratorState.currentPassword),
+  );
 
   const formContainer = document.createElement("section");
   formContainer.className = "flex flex-col gap-8 pt-4 bg-fem-grey-800 mt-4 p-4";
@@ -38,23 +41,39 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   const passwordOptionsFieldset = document.createElement("fieldset");
   passwordOptionsFieldset.className = "flex flex-col gap-4";
 
-  const upperCaseCheckbox = renderCheckbox("Include Uppercase Letters");
-  const lowerCaseCheckbox = renderCheckbox("Include Lowercase Letters");
-  const numbersCheckbox = renderCheckbox("Include Numbers Letters");
-  const symbolsCheckbox = renderCheckbox("Include Symbols Letters");
+  const upperCaseCheckbox = renderCheckbox(
+    passwordGeneratorState.includeUppercase,
+    "Include Uppercase Letters",
+  );
+  const lowerCaseCheckbox = renderCheckbox(
+    passwordGeneratorState.includeLowercase,
+    "Include Lowercase Letters",
+  );
+  const numbersCheckbox = renderCheckbox(
+    passwordGeneratorState.includeNumbers,
+    "Include Numbers Letters",
+  );
+  const symbolsCheckbox = renderCheckbox(
+    passwordGeneratorState.includeSymbols,
+    "Include Symbols Letters",
+  );
 
   passwordOptionsFieldset.appendChild(upperCaseCheckbox);
   passwordOptionsFieldset.appendChild(lowerCaseCheckbox);
   passwordOptionsFieldset.appendChild(numbersCheckbox);
   passwordOptionsFieldset.appendChild(symbolsCheckbox);
 
-  formContainer.appendChild(renderSlider());
+  formContainer.appendChild(
+    renderSlider(passwordGeneratorState.characterLength),
+  );
   formContainer.appendChild(passwordOptionsFieldset);
 
   const footer = document.createElement("div");
   footer.className = "flex flex-col gap-4";
 
-  footer.appendChild(renderStrengthDisplay("medium"));
+  footer.appendChild(
+    renderStrengthDisplay(passwordGeneratorState.characterLength),
+  );
   footer.appendChild(renderButton("Generate"));
 
   main.appendChild(h1);
