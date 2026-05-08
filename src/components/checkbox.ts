@@ -1,6 +1,12 @@
 //TODO add checbox icon
 
-export function renderCheckbox(initialValue: boolean, label: string) {
+type CheckboxChangeHandler = (checked: boolean) => void;
+
+export function renderCheckbox(
+  initialValue: boolean,
+  label: string,
+  onCheckedChange: CheckboxChangeHandler,
+): HTMLElement {
   const checkboxComponent = document.createElement("label");
   checkboxComponent.className = "flex items-center gap-6 cursor-pointer";
 
@@ -9,6 +15,10 @@ export function renderCheckbox(initialValue: boolean, label: string) {
   checkboxInput.type = "checkbox";
   checkboxInput.name = "checkbox";
   checkboxInput.className = "sr-only peer";
+
+  checkboxInput.addEventListener("change", () => {
+    onCheckedChange(checkboxInput.checked);
+  });
 
   const checkboxBox = document.createElement("div");
   checkboxBox.className =

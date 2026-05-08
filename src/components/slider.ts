@@ -1,6 +1,11 @@
 import "../styles/components/_slider-component.css";
 
-export function renderSlider(initialValue: number): HTMLElement {
+type SliderValueChangeHandler = (value: number) => void;
+
+export function renderSlider(
+  initialValue: number,
+  onValueChange: SliderValueChangeHandler,
+): HTMLElement {
   const MIN_LENGTH = 1;
   const MAX_LENGTH = 20;
   let sliderValue = initialValue;
@@ -29,14 +34,12 @@ export function renderSlider(initialValue: number): HTMLElement {
 
   const sliderComponentInput = document.createElement("input");
   sliderComponentInput.className = "password-generator__slider";
-
-  sliderComponentInput.id = SLIDER_ID;
   sliderComponentInput.type = "range";
   sliderComponentInput.min = String(MIN_LENGTH);
   sliderComponentInput.max = String(MAX_LENGTH);
   sliderComponentInput.value = String(sliderValue);
 
-  function updateSlider(): void {
+  function updateSlider(): number {
     const min = Number(sliderComponentInput.min);
     const max = Number(sliderComponentInput.max);
     const value = sliderComponentInput.valueAsNumber;
@@ -45,9 +48,14 @@ export function renderSlider(initialValue: number): HTMLElement {
 
     sliderComponentOutput.value = String(value);
     sliderComponentInput.style.setProperty("--slider-progress", `${progress}%`);
+
+    return value;
   }
 
-  sliderComponentInput.addEventListener("input", updateSlider);
+  sliderComponentInput.addEventListener("input", () => {
+    const value = updateSlider();
+    onValueChange(value);
+  });
 
   updateSlider();
 

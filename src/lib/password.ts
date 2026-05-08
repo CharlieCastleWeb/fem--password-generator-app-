@@ -1,3 +1,5 @@
+import type { PasswordGeneratorState } from "../pages/password-generator-state";
+
 const UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
@@ -5,13 +7,6 @@ const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
 const MIN_PASSWORD_LENGTH = 1;
 const MAX_PASSWORD_LENGTH = 20;
-
-export type PasswordOptions = {
-  uppercase: boolean;
-  lowercase: boolean;
-  numbers: boolean;
-  symbols: boolean;
-};
 
 function shuffleValues(values: string[]): string[] {
   const shuffledValues = [...values];
@@ -31,34 +26,39 @@ function shuffleValues(values: string[]): string[] {
 }
 
 function getSelectedCharacterGroups(
-  passwordOptions: PasswordOptions,
+  passwordState: PasswordGeneratorState,
 ): string[] {
   const selectedGroups: string[] = [];
 
-  if (passwordOptions.uppercase) selectedGroups.push(UPPERCASE_LETTERS);
-  if (passwordOptions.lowercase) selectedGroups.push(LOWERCASE_LETTERS);
-  if (passwordOptions.numbers) selectedGroups.push(NUMBERS);
-  if (passwordOptions.symbols) selectedGroups.push(SYMBOLS);
+  if (passwordState.includeUppercase) selectedGroups.push(UPPERCASE_LETTERS);
+  if (passwordState.includeLowercase) selectedGroups.push(LOWERCASE_LETTERS);
+  if (passwordState.includeNumbers) selectedGroups.push(NUMBERS);
+  if (passwordState.includeSymbols) selectedGroups.push(SYMBOLS);
 
   return selectedGroups;
 }
 
-function validatePasswordConfig(
-  length: number,
-  selectedGroups: string[],
-): void {
+export function validatePasswordConfig(
+  passwordState: PasswordGeneratorState,
+): boolean {
   const isValidLength =
-    length >= MIN_PASSWORD_LENGTH && length <= MAX_PASSWORD_LENGTH;
+    passwordState.characterLength >= MIN_PASSWORD_LENGTH &&
+    passwordState.characterLength <= MAX_PASSWORD_LENGTH;
+
+  const hasCharacterTypeSelected =
+    getSelectedCharacterGroups(passwordState).length > 0;
 
   if (!isValidLength) {
-    throw new Error(
+    console.log(
       `You must specify a length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}`,
     );
   }
 
-  if (selectedGroups.length === 0) {
-    throw new Error("You must select at least one character type");
+  if (!hasCharacterTypeSelected) {
+    console.log("You must select at least one character type");
   }
+
+  return isValidLength && hasCharacterTypeSelected;
 }
 
 function getRandomCharacter(availableCharacters: string): string {
@@ -70,21 +70,20 @@ function getRandomCharacter(availableCharacters: string): string {
 }
 
 export function generatePassword(
-  length: number,
-  passwordOptions: PasswordOptions,
+  passwordState: PasswordGeneratorState,
 ): string {
-  const selectedCharacterGroups = getSelectedCharacterGroups(passwordOptions);
-  validatePasswordConfig(length, selectedCharacterGroups);
+  const selectedCharacterGroups = getSelectedCharacterGroups(passwordState);
+  validatePasswordConfig(passwordState);
 
   const shuffledGroups = shuffleValues(selectedCharacterGroups);
   const availableCharacters = selectedCharacterGroups.join("");
   const password: string[] = [];
 
-  for (const group of shuffledGroups.slice(0, length)) {
+  for (const group of shuffledGroups.slice(0, passwordState.characterLength)) {
     password.push(getRandomCharacter(group));
   }
 
-  for (let i = password.length; i < length; i++) {
+  for (let i = password.length; i < passwordState.characterLength; i++) {
     password.push(getRandomCharacter(availableCharacters));
   }
 

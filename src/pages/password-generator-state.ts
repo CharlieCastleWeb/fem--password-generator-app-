@@ -1,4 +1,4 @@
-type PasswordGeneratorState = {
+export type PasswordGeneratorState = {
   characterLength: number;
   includeUppercase: boolean;
   includeLowercase: boolean;
@@ -8,13 +8,12 @@ type PasswordGeneratorState = {
 };
 
 const passwordGeneratorState: PasswordGeneratorState = {
-  characterLength: 1,
-  includeUppercase: false,
-  includeLowercase: false,
-  includeNumbers: false,
-  includeSymbols: false,
-  //TODO calculate password when app starts
-  currentPassword: "asdf",
+  characterLength: 10,
+  includeUppercase: true,
+  includeLowercase: true,
+  includeNumbers: true,
+  includeSymbols: true,
+  currentPassword: "",
 };
 
 export function getPasswordGeneratorState(): PasswordGeneratorState {
