@@ -12,6 +12,7 @@ import {
   renderPasswordDisplay,
   renderSlider,
 } from "../components";
+import { getPasswordStrengthLevel } from "../components/strengthDisplay";
 import { generatePassword, validatePasswordConfig } from "../lib/password";
 
 import {
@@ -118,9 +119,13 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   const footer = document.createElement("div");
   footer.className = "flex flex-col gap-4";
 
-  footer.appendChild(
-    renderStrengthDisplay(passwordGeneratorState.characterLength),
+  const passwordStrength = getPasswordStrengthLevel(
+    getPasswordGeneratorState(),
   );
+
+  const strengthDisplayContainer = document.createElement("div");
+  strengthDisplayContainer.appendChild(renderStrengthDisplay(passwordStrength));
+  footer.appendChild(strengthDisplayContainer);
 
   const generateButton = renderButton("Generate");
 
@@ -137,6 +142,10 @@ export function renderPasswordGeneratorPage(): HTMLElement {
       generatePassword(passwordGeneratorState),
     );
     resultContainer.replaceChildren(newPassword);
+    const newStrengthDisplay = renderStrengthDisplay(
+      getPasswordStrengthLevel(passwordGeneratorState),
+    );
+    strengthDisplayContainer.replaceChildren(newStrengthDisplay);
   });
   footer.appendChild(generateButton);
 
