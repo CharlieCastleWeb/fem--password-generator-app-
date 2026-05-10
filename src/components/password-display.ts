@@ -52,7 +52,7 @@ export function renderPasswordDisplay(password: string): HTMLElement {
     "bg-fem-grey-800 p-4 flex items-center justify-between";
 
   const passwordField = document.createElement("p");
-  passwordField.className = "text-preset-2 text-fem-grey-700";
+  passwordField.className = "text-preset-3 sm:text-preset-2 text-fem-grey-700";
   passwordField.textContent = password;
 
   const copyBtn = createCopyBtn(() => passwordField.textContent ?? "");

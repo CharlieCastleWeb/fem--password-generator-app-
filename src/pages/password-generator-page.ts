@@ -14,7 +14,7 @@ import {
 } from "../components";
 import { getPasswordStrengthLevel } from "../components/strengthDisplay";
 import { generatePassword, validatePasswordConfig } from "../lib/password";
-
+import { iconArrowRight } from "/assets/icons/icon-arrow-right.svg?raw";
 import {
   getPasswordGeneratorState,
   updatePasswordGeneratorState,
@@ -127,7 +127,10 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   strengthDisplayContainer.appendChild(renderStrengthDisplay(passwordStrength));
   footer.appendChild(strengthDisplayContainer);
 
-  const generateButton = renderButton("Generate");
+  const arrowIcon = document.createElement("div");
+  arrowIcon.innerHTML = "/assets/icons/icon-arrow-right.svg?raw";
+  arrowIcon.alt = "";
+  const generateButton = renderButton("Generate", arrowIcon);
 
   function updateGenerateButtonState(): void {
     const currentState = getPasswordGeneratorState();
