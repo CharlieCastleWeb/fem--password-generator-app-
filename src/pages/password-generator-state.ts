@@ -1,9 +1,6 @@
-export type PasswordGeneratorState = {
-  characterLength: number;
-  includeUppercase: boolean;
-  includeLowercase: boolean;
-  includeNumbers: boolean;
-  includeSymbols: boolean;
+import type { PasswordGeneratorConfig } from "../lib/password";
+
+export type PasswordGeneratorState = PasswordGeneratorConfig & {
   currentPassword: string;
 };
 

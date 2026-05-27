@@ -1,4 +1,10 @@
-import type { PasswordGeneratorState } from "../pages/password-generator-state";
+export type PasswordGeneratorConfig = {
+  characterLength: number;
+  includeUppercase: boolean;
+  includeLowercase: boolean;
+  includeNumbers: boolean;
+  includeSymbols: boolean;
+};
 
 const UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
@@ -26,7 +32,7 @@ function shuffleValues(values: string[]): string[] {
 }
 
 function getSelectedCharacterGroups(
-  passwordState: PasswordGeneratorState,
+  passwordState: PasswordGeneratorConfig,
 ): string[] {
   const selectedGroups: string[] = [];
 
@@ -39,7 +45,7 @@ function getSelectedCharacterGroups(
 }
 
 export function validatePasswordConfig(
-  passwordState: PasswordGeneratorState,
+  passwordState: PasswordGeneratorConfig,
 ): boolean {
   const isValidLength =
     passwordState.characterLength >= MIN_PASSWORD_LENGTH &&
@@ -48,20 +54,13 @@ export function validatePasswordConfig(
   const hasCharacterTypeSelected =
     getSelectedCharacterGroups(passwordState).length > 0;
 
-  if (!isValidLength) {
-    console.log(
-      `You must specify a length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}`,
-    );
-  }
-
-  if (!hasCharacterTypeSelected) {
-    console.log("You must select at least one character type");
-  }
-
   return isValidLength && hasCharacterTypeSelected;
 }
 
 function getRandomCharacter(availableCharacters: string): string {
+  if (availableCharacters.length === 0) {
+    throw new Error("Available characters doesn't contain any characters");
+  }
   const randomArray = new Uint32Array(1);
   crypto.getRandomValues(randomArray);
   const randomIndex = randomArray[0] % availableCharacters.length;
@@ -70,10 +69,13 @@ function getRandomCharacter(availableCharacters: string): string {
 }
 
 export function generatePassword(
-  passwordState: PasswordGeneratorState,
+  passwordState: PasswordGeneratorConfig,
 ): string {
   const selectedCharacterGroups = getSelectedCharacterGroups(passwordState);
-  validatePasswordConfig(passwordState);
+
+  if (!validatePasswordConfig(passwordState)) {
+    throw new Error("Invalid password");
+  }
 
   const shuffledGroups = shuffleValues(selectedCharacterGroups);
   const availableCharacters = selectedCharacterGroups.join("");

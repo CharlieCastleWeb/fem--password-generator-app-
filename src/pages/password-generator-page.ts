@@ -127,10 +127,7 @@ export function renderPasswordGeneratorPage(): HTMLElement {
 
   function updateGenerateButtonState(): void {
     const currentState = getPasswordGeneratorState();
-    const disabled = validatePasswordConfig(currentState);
-    console.log(!disabled);
-
-    generateButton.disabled = !disabled;
+    generateButton.disabled = !validatePasswordConfig(currentState);
   }
 
   generateButton.addEventListener("click", () => {
