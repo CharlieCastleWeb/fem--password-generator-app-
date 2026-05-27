@@ -22,7 +22,7 @@ export function renderCheckbox(
 
   const checkboxBox = document.createElement("div");
   checkboxBox.className =
-    "size-5 border-2 border-fem-grey-200 bg-no-repeat bg-center transition-colors peer-checked:bg-fem-green-200 peer-checked:border-fem-green-200 peer-checked:bg-[url('/assets/icons/icon-check.svg')]";
+    "size-5 border-2 border-fem-grey-200 hover:border-fem-green-200 bg-no-repeat bg-center transition-colors peer-checked:bg-fem-green-200 peer-checked:border-fem-green-200 peer-checked:bg-[url('/assets/icons/icon-check.svg')]";
 
   const checkboxText = document.createElement("p");
   checkboxText.className = "text-preset-4 text-fem-grey-200";
