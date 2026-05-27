@@ -1,10 +1,3 @@
-const mockOptions = {
-  mockuppercase: true,
-  mocklowercase: true,
-  mocknumbers: true,
-  mocksymbols: true,
-};
-
 import {
   renderButton,
   renderCheckbox,

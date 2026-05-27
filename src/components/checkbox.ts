@@ -1,5 +1,3 @@
-//TODO add checbox icon
-
 type CheckboxChangeHandler = (checked: boolean) => void;
 
 export function renderCheckbox(
