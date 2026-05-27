@@ -11,7 +11,6 @@ export function renderButton(
   const labelContainer = document.createElement("span");
   labelContainer.className = "flex justify-center items-center gap-4";
   const labelText = document.createElement("span");
-  labelText.className = "leading-none";
   labelText.textContent = label;
 
   labelContainer.appendChild(labelText);

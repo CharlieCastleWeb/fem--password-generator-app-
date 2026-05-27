@@ -28,7 +28,7 @@ export function renderPasswordGeneratorPage(): HTMLElement {
     "bg-fem-grey-950 p-4 flex items-center justtify-center h-screen";
 
   const main = document.createElement("main");
-  main.className = "w-full";
+  main.className = "w-full max-w-135 mx-auto";
 
   const h1 = document.createElement("h1");
   h1.className = "text-preset-4 text-fem-grey-600 text-center";
