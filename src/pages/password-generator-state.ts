@@ -1,24 +1,19 @@
 import type { PasswordGeneratorConfig } from "../lib/password";
 
-export type PasswordGeneratorState = PasswordGeneratorConfig & {
-  currentPassword: string;
-};
-
-const passwordGeneratorState: PasswordGeneratorState = {
+const passwordGeneratorState: PasswordGeneratorConfig = {
   characterLength: 10,
   includeUppercase: true,
   includeLowercase: true,
   includeNumbers: true,
   includeSymbols: true,
-  currentPassword: "",
 };
 
-export function getPasswordGeneratorState(): PasswordGeneratorState {
+export function getPasswordGeneratorState(): PasswordGeneratorConfig {
   return { ...passwordGeneratorState };
 }
 
 export function updatePasswordGeneratorState(
-  changes: Partial<PasswordGeneratorState>,
+  changes: Partial<PasswordGeneratorConfig>,
 ): void {
   Object.assign(passwordGeneratorState, changes);
 }

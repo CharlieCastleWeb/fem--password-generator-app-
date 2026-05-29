@@ -1,9 +1,9 @@
-import type { PasswordGeneratorState } from "../pages/password-generator-state";
+import type { PasswordGeneratorConfig } from "../lib/password";
 
 export type PasswordStrengthLevel = 1 | 2 | 3 | 4;
 
 export function getSelectedCharacterTypesCount(
-  passwordState: PasswordGeneratorState,
+  passwordState: PasswordGeneratorConfig,
 ): number {
   return [
     passwordState.includeUppercase,
@@ -14,7 +14,7 @@ export function getSelectedCharacterTypesCount(
 }
 
 export function getPasswordStrengthLevel(
-  passwordState: PasswordGeneratorState,
+  passwordState: PasswordGeneratorConfig,
 ): PasswordStrengthLevel {
   const { characterLength } = passwordState;
   const selectedTypesCount = getSelectedCharacterTypesCount(passwordState);
@@ -93,16 +93,13 @@ export function renderStrengthDisplay(passwordStrength: PasswordStrengthLevel) {
 
   const label = document.createElement("p");
   label.className = "text-preset-3 text-fem-grey-200 uppercase";
-  console.log(passwordStrength, semanticStrengthLevel(strengthLevel));
 
   label.textContent = semanticStrengthLevel(strengthLevel);
 
-  content.appendChild(title);
   content.appendChild(label);
   content.appendChild(renderStrengthBars(strengthLevel));
   container.appendChild(title);
   container.appendChild(content);
 
-  console.log(container);
   return container;
 }

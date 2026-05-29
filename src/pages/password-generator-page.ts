@@ -5,7 +5,10 @@ import {
   renderPasswordDisplay,
   renderSlider,
 } from "../components";
-import { getPasswordStrengthLevel } from "../components/strengthDisplay";
+import {
+  getPasswordStrengthLevel,
+  type PasswordStrengthLevel,
+} from "../components/strengthDisplay";
 import { generatePassword, validatePasswordConfig } from "../lib/password";
 import iconArrowRight from "/assets/icons/icon-arrow-right.svg?raw";
 import {
@@ -13,15 +16,9 @@ import {
   updatePasswordGeneratorState,
 } from "./password-generator-state";
 
-let passwordGeneratorState = getPasswordGeneratorState();
-
 export function renderPasswordGeneratorPage(): HTMLElement {
-  const app = document.getElementById("app");
-  app!.className =
-    "bg-fem-grey-950 p-4 flex items-center justtify-center h-screen";
-
   const main = document.createElement("main");
-  main.className = "w-full max-w-135 mx-auto";
+  main.className = "w-full max-w-135";
 
   const h1 = document.createElement("h1");
   h1.className = "text-preset-4 text-fem-grey-600 text-center";
@@ -30,82 +27,51 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   const resultContainer = document.createElement("section");
   resultContainer.className = "flex flex-col gap-4 pt-4";
 
-  resultContainer.appendChild(
-    renderPasswordDisplay(generatePassword(passwordGeneratorState)),
-  );
+  resetPasswordDisplay();
 
-  const formContainer = document.createElement("section");
+  const formContainer = document.createElement("form");
   formContainer.className = "flex flex-col gap-8 pt-4 bg-fem-grey-800 mt-4 p-4";
 
   const passwordOptionsFieldset = document.createElement("fieldset");
   passwordOptionsFieldset.className = "flex flex-col gap-4";
 
+  const passwordOptionsFieldsetLegend = document.createElement("legend");
+  passwordOptionsFieldsetLegend.textContent = "Password Options";
+  passwordOptionsFieldsetLegend.className = "sr-only";
+  passwordOptionsFieldset.appendChild(passwordOptionsFieldsetLegend);
+
   const characterLengthSlider = renderSlider(
-    passwordGeneratorState.characterLength,
+    getPasswordGeneratorState().characterLength,
     (value) => {
       updatePasswordGeneratorState({
         characterLength: value,
       });
-      passwordGeneratorState = getPasswordGeneratorState();
-      console.log(passwordGeneratorState);
+      updateSettings();
     },
   );
 
   formContainer.appendChild(characterLengthSlider);
 
-  const upperCaseCheckbox = renderCheckbox(
-    passwordGeneratorState.includeUppercase,
-    "Include Uppercase Letters",
-    (checked) => {
-      updatePasswordGeneratorState({
-        includeUppercase: checked,
-      });
-      passwordGeneratorState = getPasswordGeneratorState();
-      updateGenerateButtonState();
-      console.log(passwordGeneratorState);
-    },
-  );
-  const lowerCaseCheckbox = renderCheckbox(
-    passwordGeneratorState.includeLowercase,
-    "Include Lowercase Letters",
-    (checked) => {
-      updatePasswordGeneratorState({
-        includeLowercase: checked,
-      });
-      passwordGeneratorState = getPasswordGeneratorState();
-      updateGenerateButtonState();
-      console.log(passwordGeneratorState);
-    },
-  );
-  const numbersCheckbox = renderCheckbox(
-    passwordGeneratorState.includeNumbers,
-    "Include Numbers",
-    (checked) => {
-      updatePasswordGeneratorState({
-        includeNumbers: checked,
-      });
-      passwordGeneratorState = getPasswordGeneratorState();
-      updateGenerateButtonState();
-      console.log(passwordGeneratorState);
-    },
-  );
-  const symbolsCheckbox = renderCheckbox(
-    passwordGeneratorState.includeSymbols,
-    "Include Symbols",
-    (checked) => {
-      updatePasswordGeneratorState({
-        includeSymbols: checked,
-      });
-      passwordGeneratorState = getPasswordGeneratorState();
-      updateGenerateButtonState();
-      console.log(passwordGeneratorState);
-    },
-  );
+  const checkboxOptions = [
+    { key: "includeUppercase", label: "Include Uppercase Letters" },
+    { key: "includeLowercase", label: "Include Lowercase Letters" },
+    { key: "includeNumbers", label: "Include Numbers" },
+    { key: "includeSymbols", label: "Include Symbols" },
+  ] as const;
 
-  passwordOptionsFieldset.appendChild(upperCaseCheckbox);
-  passwordOptionsFieldset.appendChild(lowerCaseCheckbox);
-  passwordOptionsFieldset.appendChild(numbersCheckbox);
-  passwordOptionsFieldset.appendChild(symbolsCheckbox);
+  checkboxOptions.forEach((option) => {
+    const checkbox = renderCheckbox(
+      getPasswordGeneratorState()[option.key],
+      option.label,
+      (checked) => {
+        updatePasswordGeneratorState({
+          [option.key]: checked,
+        });
+        updateSettings();
+      },
+    );
+    passwordOptionsFieldset.appendChild(checkbox);
+  });
 
   formContainer.appendChild(passwordOptionsFieldset);
 
@@ -121,7 +87,6 @@ export function renderPasswordGeneratorPage(): HTMLElement {
   footer.appendChild(strengthDisplayContainer);
 
   const arrowIcon = document.createElement("span");
-  arrowIcon.className = "";
   arrowIcon.innerHTML = iconArrowRight;
   const generateButton = renderButton("Generate", arrowIcon);
 
@@ -130,15 +95,38 @@ export function renderPasswordGeneratorPage(): HTMLElement {
     generateButton.disabled = !validatePasswordConfig(currentState);
   }
 
-  generateButton.addEventListener("click", () => {
-    const newPassword = renderPasswordDisplay(
-      generatePassword(passwordGeneratorState),
+  function updateStrengthDisplay(strengthLevel: PasswordStrengthLevel): void {
+    strengthDisplayContainer.replaceChildren(
+      renderStrengthDisplay(strengthLevel),
     );
+  }
+
+  function resetPasswordDisplay(): void {
+    resultContainer.replaceChildren(
+      renderPasswordDisplay("Check options and generate"),
+    );
+  }
+
+  function updateSettings(): void {
+    resetPasswordDisplay();
+    updateGenerateButtonState();
+    updateStrengthDisplay(
+      getPasswordStrengthLevel(getPasswordGeneratorState()),
+    );
+  }
+
+  function generateAndRenderPassword(): void {
+    const currentState = getPasswordGeneratorState();
+    if (!validatePasswordConfig(currentState)) {
+      resetPasswordDisplay();
+      return;
+    }
+    const newPassword = renderPasswordDisplay(generatePassword(currentState));
     resultContainer.replaceChildren(newPassword);
-    const newStrengthDisplay = renderStrengthDisplay(
-      getPasswordStrengthLevel(passwordGeneratorState),
-    );
-    strengthDisplayContainer.replaceChildren(newStrengthDisplay);
+  }
+
+  generateButton.addEventListener("click", () => {
+    generateAndRenderPassword();
   });
   footer.appendChild(generateButton);
 
