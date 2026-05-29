@@ -58,6 +58,11 @@
   border-color: var(--color-fem-green-200);
 }
 
+.password-generator__slider:focus-visible {
+  outline: 2px solid var(--color-fem-green-200);
+  outline-offset: 0.5rem;
+}
+
 .password-generator__slider:focus-visible::-webkit-slider-thumb {
   background-color: var(--color-fem-grey-850);
   border: 2px solid var(--color-fem-green-200);

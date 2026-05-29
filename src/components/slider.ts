@@ -33,6 +33,7 @@ export function renderSlider(
 
   const sliderComponentInput = document.createElement("input");
   sliderComponentInput.className = "password-generator__slider";
+  sliderComponentInput.id = SLIDER_ID;
   sliderComponentInput.type = "range";
   sliderComponentInput.min = String(MIN_PASSWORD_LENGTH);
   sliderComponentInput.max = String(MAX_PASSWORD_LENGTH);
