@@ -1,4 +1,4 @@
-import "../styles/components/_slider-component.css";
+import "../styles/components/_slider.css";
 
 type SliderValueChangeHandler = (value: number) => void;
 

@@ -8,7 +8,7 @@ import {
 import {
   getPasswordStrengthLevel,
   type PasswordStrengthLevel,
-} from "../components/strengthDisplay";
+} from "../components/strength-display";
 import { generatePassword, validatePasswordConfig } from "../lib/password";
 import iconArrowRight from "/assets/icons/icon-arrow-right.svg?raw";
 import {
