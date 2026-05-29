@@ -16,4 +16,15 @@ export function updatePasswordGeneratorState(
   changes: Partial<PasswordGeneratorConfig>,
 ): void {
   Object.assign(passwordGeneratorState, changes);
+  passwordGeneratorStateSubscribers.forEach((subscriber) => {
+    subscriber();
+  });
+}
+
+const passwordGeneratorStateSubscribers: Array<() => void> = [];
+
+export function subscribeToPasswordGeneratorState(
+  subscriber: () => void,
+): void {
+  passwordGeneratorStateSubscribers.push(subscriber);
 }

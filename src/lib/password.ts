@@ -11,8 +11,8 @@ const LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
 const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-const MIN_PASSWORD_LENGTH = 1;
-const MAX_PASSWORD_LENGTH = 20;
+export const MIN_PASSWORD_LENGTH = 1;
+export const MAX_PASSWORD_LENGTH = 20;
 const UINT32_RANGE = 0x100000000;
 
 function getRandomIndex(maxExclusive: number): number {

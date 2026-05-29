@@ -14,6 +14,7 @@ import iconArrowRight from "/assets/icons/icon-arrow-right.svg?raw";
 import {
   getPasswordGeneratorState,
   updatePasswordGeneratorState,
+  subscribeToPasswordGeneratorState,
 } from "./password-generator-state";
 
 export function renderPasswordGeneratorPage(): HTMLElement {
@@ -46,7 +47,6 @@ export function renderPasswordGeneratorPage(): HTMLElement {
       updatePasswordGeneratorState({
         characterLength: value,
       });
-      updateSettings();
     },
   );
 
@@ -67,7 +67,6 @@ export function renderPasswordGeneratorPage(): HTMLElement {
         updatePasswordGeneratorState({
           [option.key]: checked,
         });
-        updateSettings();
       },
     );
     passwordOptionsFieldset.appendChild(checkbox);
@@ -106,6 +105,10 @@ export function renderPasswordGeneratorPage(): HTMLElement {
       renderPasswordDisplay("Check options and generate"),
     );
   }
+
+  subscribeToPasswordGeneratorState(() => {
+    updateSettings();
+  });
 
   function updateSettings(): void {
     resetPasswordDisplay();

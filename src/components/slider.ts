@@ -1,4 +1,5 @@
 import "../styles/components/_slider.css";
+import { MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from "../lib/password";
 
 type SliderValueChangeHandler = (value: number) => void;
 
@@ -6,8 +7,6 @@ export function renderSlider(
   initialValue: number,
   onValueChange: SliderValueChangeHandler,
 ): HTMLElement {
-  const MIN_LENGTH = 1;
-  const MAX_LENGTH = 20;
   let sliderValue = initialValue;
   const SLIDER_ID = "character-length";
 
@@ -35,8 +34,8 @@ export function renderSlider(
   const sliderComponentInput = document.createElement("input");
   sliderComponentInput.className = "password-generator__slider";
   sliderComponentInput.type = "range";
-  sliderComponentInput.min = String(MIN_LENGTH);
-  sliderComponentInput.max = String(MAX_LENGTH);
+  sliderComponentInput.min = String(MIN_PASSWORD_LENGTH);
+  sliderComponentInput.max = String(MAX_PASSWORD_LENGTH);
   sliderComponentInput.value = String(sliderValue);
 
   function updateSlider(): number {
