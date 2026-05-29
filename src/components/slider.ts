@@ -6,9 +6,10 @@ type SliderValueChangeHandler = (value: number) => void;
 export function renderSlider(
   initialValue: number,
   onValueChange: SliderValueChangeHandler,
+  id: string,
 ): HTMLElement {
   let sliderValue = initialValue;
-  const SLIDER_ID = "character-length";
+  const SLIDER_ID = id;
 
   const sliderComponent = document.createElement("section");
 
@@ -25,7 +26,7 @@ export function renderSlider(
   sliderComponentOutput.className =
     "text-preset-2 text-fem-green-200 font-normal";
   sliderComponentOutput.setAttribute("for", SLIDER_ID);
-  sliderComponentOutput.id = "character-length-value";
+  sliderComponentOutput.id = `${SLIDER_ID}-value`;
   sliderComponentOutput.value = String(sliderValue);
 
   sliderComponentHeader.appendChild(sliderComponentLabel);

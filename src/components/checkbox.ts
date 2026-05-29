@@ -4,6 +4,7 @@ export function renderCheckbox(
   initialValue: boolean,
   label: string,
   onCheckedChange: CheckboxChangeHandler,
+  name?: string,
 ): HTMLElement {
   const checkboxComponent = document.createElement("label");
   checkboxComponent.className = "flex items-center gap-6 cursor-pointer";
@@ -11,7 +12,7 @@ export function renderCheckbox(
   const checkboxInput = document.createElement("input");
   checkboxInput.checked = initialValue;
   checkboxInput.type = "checkbox";
-  checkboxInput.name = "checkbox";
+  if (name) checkboxInput.name = name;
   checkboxInput.className = "sr-only peer";
 
   checkboxInput.addEventListener("change", () => {

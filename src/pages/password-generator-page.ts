@@ -48,15 +48,32 @@ export function renderPasswordGeneratorPage(): HTMLElement {
         characterLength: value,
       });
     },
+    "character-length",
   );
 
   formContainer.appendChild(characterLengthSlider);
 
   const checkboxOptions = [
-    { key: "includeUppercase", label: "Include Uppercase Letters" },
-    { key: "includeLowercase", label: "Include Lowercase Letters" },
-    { key: "includeNumbers", label: "Include Numbers" },
-    { key: "includeSymbols", label: "Include Symbols" },
+    {
+      key: "includeUppercase",
+      label: "Include Uppercase Letters",
+      name: "uppercase-checkbox",
+    },
+    {
+      key: "includeLowercase",
+      label: "Include Lowercase Letters",
+      name: "lowercase-checkbox",
+    },
+    {
+      key: "includeNumbers",
+      label: "Include Numbers",
+      name: "numbers-checkbox",
+    },
+    {
+      key: "includeSymbols",
+      label: "Include Symbols",
+      name: "symbols-checkbox",
+    },
   ] as const;
 
   checkboxOptions.forEach((option) => {
@@ -68,6 +85,7 @@ export function renderPasswordGeneratorPage(): HTMLElement {
           [option.key]: checked,
         });
       },
+      option.name,
     );
     passwordOptionsFieldset.appendChild(checkbox);
   });

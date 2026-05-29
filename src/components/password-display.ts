@@ -40,7 +40,9 @@ function createCopyBtn(getPassword: () => string): HTMLButtonElement {
         copyBtn.dataset.copied = "false";
       }, 1500);
     } catch (error) {
-      console.error("Could not copy to clipboard", error);
+      copiedMessage.textContent = "copy failed".toUpperCase();
+      showCopiedMessage(copiedMessage);
+      copyBtn.dataset.copied = "false";
     }
   });
   return copyBtn;
