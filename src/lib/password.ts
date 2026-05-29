@@ -13,21 +13,31 @@ const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
 const MIN_PASSWORD_LENGTH = 1;
 const MAX_PASSWORD_LENGTH = 20;
+const UINT32_RANGE = 0x100000000;
+
+function getRandomIndex(maxExclusive: number): number {
+  const randomArray = new Uint32Array(1);
+  const maxValidValue = UINT32_RANGE - (UINT32_RANGE % maxExclusive);
+
+  let randomValue: number;
+  do {
+    crypto.getRandomValues(randomArray);
+    randomValue = randomArray[0];
+  } while (randomValue >= maxValidValue);
+
+  return randomValue % maxExclusive;
+}
 
 function shuffleValues(values: string[]): string[] {
   const shuffledValues = [...values];
   for (let i = shuffledValues.length - 1; i > 0; i--) {
-    const randomArray = new Uint32Array(1);
-    crypto.getRandomValues(randomArray);
-
-    const randomIndex = randomArray[0] % (i + 1);
+    const randomIndex = getRandomIndex(i + 1);
 
     [shuffledValues[i], shuffledValues[randomIndex]] = [
       shuffledValues[randomIndex],
       shuffledValues[i],
     ];
   }
-
   return shuffledValues;
 }
 
@@ -61,9 +71,7 @@ function getRandomCharacter(availableCharacters: string): string {
   if (availableCharacters.length === 0) {
     throw new Error("Available characters doesn't contain any characters");
   }
-  const randomArray = new Uint32Array(1);
-  crypto.getRandomValues(randomArray);
-  const randomIndex = randomArray[0] % availableCharacters.length;
+  const randomIndex = getRandomIndex(availableCharacters.length);
 
   return availableCharacters[randomIndex];
 }

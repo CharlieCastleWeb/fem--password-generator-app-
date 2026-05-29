@@ -40,7 +40,7 @@ function createCopyBtn(getPassword: () => string): HTMLButtonElement {
         copyBtn.dataset.copied = "false";
       }, 1500);
     } catch (error) {
-      console.error("No se pudo copiar al portapapeles", error);
+      console.error("Could not copy to clipboard", error);
     }
   });
   return copyBtn;
